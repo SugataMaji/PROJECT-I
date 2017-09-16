@@ -28,8 +28,8 @@ export class AppComponent implements OnInit{
 
    this.addMovieform = this.fb.group({
       'ImgUrl': ['', Validators.compose([Validators.required])],
-      'title': ['', Validators.compose([Validators.pattern('^[a-zA-Z0-9]*$'), Validators.required, Validators.minLength(2)])],
-      'description': ['', Validators.compose([Validators.pattern('^[a-zA-Z0-9]*$'), Validators.required, Validators.minLength(2)])],
+      'title': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
+      'description': ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       'rating': ['', Validators.compose([Validators.required])],
       'releasedate': ['', Validators.compose([Validators.required])],
     });
