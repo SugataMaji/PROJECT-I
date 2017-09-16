@@ -1,0 +1,116 @@
+<div class="row full">
+  <div class="col-md-3 formbox">
+    <div class="">
+      <p class="formhead">Add Movie</p>
+      <p class="formdecs">We are here to take a review of latest movie.<br>So, write your valuable feedback.</p> 
+      <hr>
+<form [formGroup]="addMovieform" (ngSubmit)="addmovielist()">
+  <div>
+    <input type="text" formControlName="ImgUrl" class="formcontrol" placeholder="Paste full Image Link">
+    <div *ngIf="addMovieform.controls['ImgUrl'].errors && (addMovieform.controls['ImgUrl'].dirty || addMovieform.controls['ImgUrl'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="addMovieform.controls['ImgUrl'].hasError('required')">
+                                    Image is required.
+                                </div>
+                            </div>
+                             </div>
+
+  <div>
+    <input type="text" formControlName="title"  class="formcontrol" placeholder="Movie Title">
+    <div *ngIf="addMovieform.controls['title'].errors && (addMovieform.controls['title'].dirty || addMovieform.controls['title'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="addMovieform.controls['title'].hasError('required')">
+                                    Movie Title is required.
+                                </div>
+                                <div *ngIf="addMovieform.controls['title'].hasError('minlength')">
+                                    Please enter atleast 2 characeters.
+                                </div>
+                                <div *ngIf="addMovieform.controls['title'].hasError('pattern')">
+                                    Movie Title accepts alphabets and number.
+                                </div>
+                            </div>
+                             </div>
+  <div>
+    <input type="text" formControlName="description"  class="formcontrol" placeholder="Write Movie Decription">
+    <div *ngIf="addMovieform.controls['description'].errors && (addMovieform.controls['description'].dirty || addMovieform.controls['description'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="addMovieform.controls['description'].hasError('required')">
+                                    Movie description is required.
+                                </div>
+                                <div *ngIf="addMovieform.controls['description'].hasError('minlength')">
+                                    Please enter atleast 2 characeters.
+                                </div>
+                                <div *ngIf="addMovieform.controls['description'].hasError('pattern')">
+                                    Movie description accepts alphabets and number.
+                                </div>
+                            </div>
+                             </div>
+  <div> 
+    <label for="" style=" color: #fff; margin: 0; text-transform: uppercase; font-weight: bold; letter-spacing: 2px; font-size: 12px; ">Rating</label>
+    <select formControlName="rating" id=""  class="formcontrol"  >
+      <option  [value]="" [disabled]="true">Rating</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+    </select>
+    <div *ngIf="addMovieform.controls['rating'].errors && (addMovieform.controls['rating'].dirty || addMovieform.controls['rating'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="addMovieform.controls['rating'].hasError('required')">
+                                    Movie rating is required.
+                                </div>
+                                
+                            </div>
+                             </div>
+  <div>
+    <input type="date" formControlName="releasedate" class="formcontrol"  placeholder="Release date">
+    <div *ngIf="addMovieform.controls['releasedate'].errors && (addMovieform.controls['releasedate'].dirty || addMovieform.controls['releasedate'].touched)"
+                                class="alert alert-danger">
+                                <div *ngIf="addMovieform.controls['releasedate'].hasError('required')">
+                                    Movie release date is required.
+                                </div>
+                            </div>
+                            </div>
+  <div>
+    <input type="submit" value="Submit" class="formbtn"  [disabled]="addMovieform.invalid">
+    <input type="button" id="btn-login" class="formbtn" value="Reset" (click)="resetForm()" >
+  </div>
+</form>
+  </div>
+    </div>  
+  <div class="col-md-9 listbox">
+        <div class="">
+          <div *ngIf="Movies.length <= 0" [ngStyle]="{'text-align': 'center','color': '#ac00cc'}">
+            <img src="assets/opps.png" class="img-responsice center-block" width="200">
+                            <p style=" font-size: 38px; font-weight: bold; ">Opps, Sorry!</p>
+                        
+                            <p style=" font-style: italic;    font-size: 18px; ">We are waiting for your reviews!</p>
+                            
+                        </div>
+<table  class="table table-hover" [hidden]="!Movies.length > 0">
+  <tr class="trhead">
+    <th>#</th>
+    <th>Image</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Rating</th>
+    <th>Release date</th>
+  </tr>
+  <tr *ngFor="let movie of Movies; let i = index" class="trbody">
+    <td>{{i+1}}</td>
+    <td><img [src]="movie.ImgUrl" height="70"></td>
+    <td><b>{{movie.title}}</b></td>
+    <td class="decs">{{movie.description}}</td>
+    <td appRating *ngIf="movie.rating=='1'">&#9733;</td>
+    <td appRating *ngIf="movie.rating=='2'">&#9733; &#9733;</td>
+    <td appRating *ngIf="movie.rating=='3'">&#9733; &#9733; &#9733;</td>
+    <td appRating *ngIf="movie.rating=='4'">&#9733; &#9733; &#9733; &#9733; </td>
+    <td appRating *ngIf="movie.rating=='5'">&#9733; &#9733; &#9733; &#9733; &#9733;</td>
+    <td>{{movie.releasedate | date}}</td>
+  </tr>
+
+</table>
+  </div>  
+  </div>  
+  </div>
